@@ -12,3 +12,15 @@ test('GET user 2 returns 200 and an email', async ({ request }) => {
   const body = await response.json();
   expect(body.data.email).toBeTruthy();
 });
+
+test('POST creates a user named morpheus', async ({ request }) => {
+  const response = await request.post('https://reqres.in/api/users', {
+    headers: { 'x-api-key': apiKey },
+    data: { name: 'morpheus', job: 'leader' },
+  });
+
+  expect(response.status()).toBe(201);
+
+  const body = await response.json();
+  expect(body.name).toBe('morpheus');
+});
