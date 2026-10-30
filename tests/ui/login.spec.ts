@@ -10,13 +10,11 @@ test('standard user can log in and see the Products page', async ({ page }) => {
 });
 
 test('locked out user sees an error', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com');
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('locked_out_user', 'secret_sauce');
 
-  await page.getByTestId('username').fill('locked_out_user');
-  await page.getByTestId('password').fill('secret_sauce');
-  await page.getByTestId('login-button').click();
-
-  await expect(page.getByTestId('error')).toContainText('locked out');
+  await expect(loginPage.errorMessage).toContainText('locked out');
 });
 
 test('logged in user can log out and returns to the login page', async ({ page }) => {
