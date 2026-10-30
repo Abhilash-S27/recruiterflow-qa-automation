@@ -24,3 +24,11 @@ test('POST creates a user named morpheus', async ({ request }) => {
   const body = await response.json();
   expect(body.name).toBe('morpheus');
 });
+
+test('GET user 23 returns 404', async ({ request }) => {
+  const response = await request.get('https://reqres.in/api/users/23', {
+    headers: { 'x-api-key': apiKey },
+  });
+
+  expect(response.status()).toBe(404);
+});
