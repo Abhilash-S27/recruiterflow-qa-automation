@@ -18,15 +18,13 @@ test('locked out user sees an error', async ({ page }) => {
 });
 
 test('logged in user can log out and returns to the login page', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-
-  await page.getByTestId('username').fill('standard_user');
-  await page.getByTestId('password').fill('secret_sauce');
-  await page.getByTestId('login-button').click();
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('standard_user', 'secret_sauce');
 
   await page.getByRole('button', { name: 'Open Menu' }).click();
   await page.getByTestId('logout-sidebar-link').click();
 
-  await expect(page.getByTestId('login-button')).toBeVisible();
+  await expect(loginPage.loginButton).toBeVisible();
   await expect(page).toHaveURL('https://www.saucedemo.com/');
 });
