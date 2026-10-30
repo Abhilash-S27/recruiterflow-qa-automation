@@ -50,8 +50,8 @@ It was built for the RecruiterFlow QA Automation Intern take-home assignment. Th
 Replace the placeholders with your own values.
 
 ```powershell
-git clone <REPO_URL>
-cd <REPO_FOLDER>
+git clone https://github.com/Abhilash-S27/recruiterflow-qa-automation.git
+cd recruiterflow-qa-automation
 npm install
 npx playwright install chromium
 ```
